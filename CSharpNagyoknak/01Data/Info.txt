@@ -1,0 +1,25 @@
+﻿0. Lépés
+A feladatunk, hogy egy todo alkalmazást készítsünk, legalábbis a back-endjét, adatbázissal és kiszolgáló webapi-val.
+
+1. Lépés: adatbázis hozzáférés választása
+EntityFramework Code First (Migrations)
+
+EntityFramework: ORM (Object Relational Mapper)
+Code First 
+
+Data first (DB First):
+DB ---> (Model --->) DbContext (Az adatokhoz való hozzáférést segítő osztálykörnyezetet)
+(Amennyiben egy meglévő fejlesztésben szeretnénk használni a Code First előnyeit, át kell álln unk a Code First használatára.
+Szerencsére van erre mód, erre ad megoldást ez a válasz: 
+https://stackoverflow.com/questions/15268036/edmx-for-legacy-code-and-code-first-for-new-development-together-in-one-mvc-pr)
+
+Model first:
+DB <--- Model --->   DbContext
+
+Code First:
+DB <--- (Model <---) DbContext
+
+a. Ez az egész borzasztó egyszerűen használható!
+b. a .NET Core hoz fejlesztett EntityFramework Core csak a Code First-öt támogatja
+
+2. Lépés: adatbázis létrehozása
