@@ -1,4 +1,14 @@
-﻿0. Lépés
+﻿<Kis kitérő: Git/Github>
+Kódtár [Github (Git)] --(Clone)--> Kódtár [Saját gép] ----------> Munkakönyvtár (Working Directory)
+
+                                   Változások         <-(commit)- Változások
+                                                      <-(commit)- Változások
+                                                      <-(commit)- Változások
+                                                      <-(commit)- Változások
+Változás              <-(Push)--- 
+</Kis kitérő: Git/Github>
+
+0. Lépés
 A feladatunk, hogy egy todo alkalmazást készítsünk, legalábbis a back-endjét, adatbázissal és kiszolgáló webapi-val.
 
 1. Lépés: adatbázis hozzáférés választása
@@ -23,3 +33,6 @@ a. Ez az egész borzasztó egyszerűen használható!
 b. a .NET Core hoz fejlesztett EntityFramework Core csak a Code First-öt támogatja
 
 2. Lépés: adatbázis létrehozása
+
+
+
