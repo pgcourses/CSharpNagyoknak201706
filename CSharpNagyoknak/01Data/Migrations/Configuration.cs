@@ -17,6 +17,7 @@ namespace _01Data.Migrations
         {
             context.Severities.AddOrUpdate(s=>s.Title, new Model.Severity { Title = "Fontos" });
             context.Severities.AddOrUpdate(s=>s.Title, new Model.Severity { Title = "Nem fontos" });
+            base.Seed(context);
         }
     }
 }

@@ -35,13 +35,19 @@ namespace _01Data.Test
             //SUT: System Under Test
             var sut = new TodoContext(); //ahhoz, hogy hozzáférjek a finally-ban nem szerepelhet a try-ban
 
+            //Mivel töröltük, majd újra létrehoztuk az egész adatbázist, 
+            //így pontosan tudjuk az adatbázisunk állapotát. Ezért tudjuk azt, hogy a tesztadatok 
+            //azonosítója mi
+            var severity = sut.Severities.Find(3);
+
             var testTodo = new TodoItem
             {
                 //Id //Az Id-t nem kell megadni, mert az adatbázisban képződik, onnan jön
                 Title = "Tejet venni a palacsintához",
                 IsDone = false,
                 Opened = DateTime.Now,
-                Closed = DateTime.Now
+                Closed = null,
+                Severity = severity
             };
 
             //A végén mindenképpen törölnünk kell a felvitt elemet

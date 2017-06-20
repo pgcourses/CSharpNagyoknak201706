@@ -108,3 +108,19 @@ Hátrányok:
   Migr:
     sok helyen szétszórva írjuk az adatainkat
 	nem típusos (SQL utasítást adunk át szövegként, futásidőben derül ki, hogy jó-e)    
+
+6. Adatbázis létrehozása
+6.1: Update database (Migrations)
+     meglévő, különböző állapotú és adatokat tartalmazó adatbézisoknál haszálható jól
+
+6.2  DropAndCreate
+     tesztadatbázisoknál jól használható
+
+A konfigurációt az induló (startup) projekt adja. Így, ha teszt konfigurációmat a 
+teszt projektbe írom, annak semmilyen hatása nem lesz a többi projekt 
+(pl. az eredeti Data projekt) konfigurációjára, és fordítva.
+
+Megvan az a nagyon fontos előnye, hogy mindig pontosan ugyanúgy jön létre, így 
+tudok az adatbázisom azonosítóira hivatkozni, rögzítve vannak.
+Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben) 
+és a seed nem változik, akkor az azonosítók sem változnak.
