@@ -34,5 +34,7 @@ b. a .NET Core hoz fejlesztett EntityFramework Core csak a Code First-öt támog
 
 2. Lépés: adatbázis létrehozása
 
-
+3. Lépés: adatbázis integrációs teszt
+a.) A tesztek sorrendjében nem érdemes bízni (atomic teszteket kell írni)
+b.) A tesztnek ismételhetőnek kell lennie (A tesztnek pontosan úgy kell elhagynia a helyszínt, ahogy oda érkezett.)
 
