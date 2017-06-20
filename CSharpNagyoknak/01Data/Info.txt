@@ -85,5 +85,26 @@ https://stackoverflow.com/a/27920032/208922
 
 Fontos: Ha változik a séma, akkor a Seed lehet, hogy nem fut le!!!
 Ezért:
-Ha a seed-ben gyártjuk a kezdőadatokat, akkor azt folyamatosan karban kell tartani.
-Vagy, az egyes adatfeltöltéseket a migrációs lépésben hajtjuk végre.
+Ha a seed-ben gyártjuk a kezdőadatokat, akkor azt folyamatosan karban kell tartani. (SEED)
+
+Vagy, az egyes adatfeltöltéseket a migrációs lépésben hajtjuk végre. (MIGR)
+
+Előnyök:
+  Seed: 
+	szigorúan típusos, 
+	használhatjuk a C# lehetőségeit
+	egy helyen van valamennyi adatfeltöltés
+	kiszervezhető
+	utólag könyebben
+  migr: 
+	együtt mozog az adatbázis sémával, 
+	ha változik a séma (migráción keresztül) az adatfeltöltést nem érinti,
+	tudjuk írni az identity mezőket is (még akkor is, ha nem egyszerű)
+
+Hátrányok:
+  Seed: 
+	ha változik az adatbázis séma, akkor mindig hozzá kell igazítani
+    nehéz hibát keresni benne
+  Migr:
+    sok helyen szétszórva írjuk az adatainkat
+	nem típusos (SQL utasítást adunk át szövegként, futásidőben derül ki, hogy jó-e)    
