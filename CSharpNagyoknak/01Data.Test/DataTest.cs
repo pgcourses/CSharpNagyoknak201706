@@ -33,24 +33,35 @@ namespace _01Data.Test
         {
             //Act
             //SUT: System Under Test
-            var sut = new TodoContext();
+            var sut = new TodoContext(); //ahhoz, hogy hozzáférjek a finally-ban nem szerepelhet a try-ban
 
-            //Arrange
-            sut.TodoItems.Add(new TodoItem {
+            var testTodo = new TodoItem
+            {
                 //Id //Az Id-t nem kell megadni, mert az adatbázisban képződik, onnan jön
                 Title = "Tejet venni a palacsintához",
                 IsDone = false,
                 Opened = DateTime.Now,
                 Closed = DateTime.Now
-            });
+            };
 
-            sut.SaveChanges();
+            //A végén mindenképpen törölnünk kell a felvitt elemet
+            try
+            {
+                //Arrange
+                sut.TodoItems.Add(testTodo);
 
-            var count = sut.TodoItems.Count();
+                sut.SaveChanges();
 
-            //Assert
-            Assert.AreEqual(1, count);
-
+                var count = sut.TodoItems.Count();
+                //Assert
+                Assert.AreEqual(1, count);
+            }
+            finally
+            { //Ez a kódrész mindenképpen végrehajtódik, akár volt exception akár nem
+                //COMMENT: érdemes ellenőrizni a létezést, mert ha nem létezik, akkor hibára fut a teszt. Viszont ez lehet, hogy nem baj.
+                sut.TodoItems.Remove(testTodo);
+                sut.SaveChanges();
+            }
         }
     }
 }
