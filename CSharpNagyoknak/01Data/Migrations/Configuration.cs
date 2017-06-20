@@ -15,18 +15,8 @@ namespace _01Data.Migrations
 
         protected override void Seed(_01Data.Model.TodoContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            context.Severities.AddOrUpdate(s=>s.Title, new Model.Severity { Title = "Fontos" });
+            context.Severities.AddOrUpdate(s=>s.Title, new Model.Severity { Title = "Nem fontos" });
         }
     }
 }

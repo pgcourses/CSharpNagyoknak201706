@@ -68,6 +68,18 @@
     <Compile Include="Migrations\201706200958255_Add TodoItem.SeverityId column.Designer.cs">
       <DependentUpon>201706200958255_Add TodoItem.SeverityId column.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706201130303_Add Severity.Created column.cs" />
+    <Compile Include="Migrations\201706201130303_Add Severity.Created column.Designer.cs">
+      <DependentUpon>201706201130303_Add Severity.Created column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706201159150_delete Severity.Created column.cs" />
+    <Compile Include="Migrations\201706201159150_delete Severity.Created column.Designer.cs">
+      <DependentUpon>201706201159150_delete Severity.Created column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706201200077_add Severity records.cs" />
+    <Compile Include="Migrations\201706201200077_add Severity records.Designer.cs">
+      <DependentUpon>201706201200077_add Severity records.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Severity.cs" />
     <Compile Include="Model\TodoContext.cs" />
@@ -94,6 +106,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706200958255_Add TodoItem.SeverityId column.resx">
       <DependentUpon>201706200958255_Add TodoItem.SeverityId column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706201130303_Add Severity.Created column.resx">
+      <DependentUpon>201706201130303_Add Severity.Created column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706201159150_delete Severity.Created column.resx">
+      <DependentUpon>201706201159150_delete Severity.Created column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706201200077_add Severity records.resx">
+      <DependentUpon>201706201200077_add Severity records.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

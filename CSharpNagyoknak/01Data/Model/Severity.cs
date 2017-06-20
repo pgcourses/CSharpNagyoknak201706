@@ -1,4 +1,6 @@
-﻿namespace _01Data.Model
+﻿using System;
+
+namespace _01Data.Model
 {
     public class Severity
     {
@@ -6,5 +8,6 @@
         //[Key] attributum kell a mezőre
         public int Id { get; set; }
         public string Title { get; set; }
+        //public DateTime Created { get; set; }
     }
 }

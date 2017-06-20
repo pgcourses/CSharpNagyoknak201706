@@ -74,3 +74,16 @@ http://www.entityframeworktutorial.net/code-first/entity-framework-code-first.as
 https://coding.abel.nu/2012/02/using-entity-framework-to-create-a-database/
 https://blog.oneunicorn.com/category/entity-framework/code-first/
 
+Alapértelmezett érték megadása Code First Migrations mezőnél:
+
+https://stackoverflow.com/a/31026023/208922
+https://stackoverflow.com/a/27920032/208922
+
+5. Adatok
+
+5.1: Seed: a migrációk után, minden update-database végrehajtásakor lefut.
+
+Fontos: Ha változik a séma, akkor a Seed lehet, hogy nem fut le!!!
+Ezért:
+Ha a seed-ben gyártjuk a kezdőadatokat, akkor azt folyamatosan karban kell tartani.
+Vagy, az egyes adatfeltöltéseket a migrációs lépésben hajtjuk végre.

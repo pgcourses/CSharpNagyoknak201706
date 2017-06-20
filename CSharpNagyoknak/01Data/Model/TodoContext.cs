@@ -16,5 +16,6 @@ namespace _01Data.Model
     {
         //2. Össze kell kötni az adatokat reprezentáló osztályt az elérési osztállyal.
         public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<Severity> Severities { get; set; }
     }
 }
