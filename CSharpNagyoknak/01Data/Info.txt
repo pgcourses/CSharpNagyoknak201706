@@ -124,3 +124,30 @@ Megvan az a nagyon fontos előnye, hogy mindig pontosan ugyanúgy jön létre, �
 tudok az adatbázisom azonosítóira hivatkozni, rögzítve vannak.
 Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben) 
 és a seed nem változik, akkor az azonosítók sem változnak.
+
+6.3 Adatbázis elérésének és nevének paraméterezése
+    A DbContext konstruktorának segítségével az app/web.config-ból
+
+7. Migrációs lépések futtatása parancssorból (migrate.exe)
+   https://msdn.microsoft.com/en-us/library/jj618307(v=vs.113).aspx
+
+   a migrate.exe az EntityFramework nuget csomaggal érkezik, és a 
+    CSharpNagyoknak\packages\EntityFramework.6.1.3\tools könyvtárban található.
+	Sajnos, nem sikerült rávenni, hogy innen futtatható legyen, ezért a megoldás, 
+	hogy a migrációs lépéseket tartalmazó assembly (jelen esetben a 01Data.exe) mellé
+	másoljuk (ha Debug buildünk van, akkor: CSharpNagyoknak\01Data\bin\Debug könyvtár),  
+	ezt például úgy is megoldhatjuk, ha a migrate.exe-t felvesszük a projektbe mint Content és 
+	Copy to oputput Directory beállítást átállítjuk "Copy if newer" értékre.
+	Fontos, hogy a projekt gyökérkönyvtárába vegyük fel, így a Build az exe és a dll-ek mellé teszi.
+
+	Ezt követően a 01Data.exe könyvtárban ezzel a paranccsal futtathatók a migrációs lépések:
+
+	Mindent feltelepít:
+	CSharpNagyoknak\01Data\bin\Debug>migrate 01Data.exe /startupConfigurationFile:01Data.exe.config /verbose
+	
+	Mindent visszavon:
+	CSharpNagyoknak\01Data\bin\Debug>migrate 01Data.exe /startupConfigurationFile:01Data.exe.config /targetMigration:0 /verbose
+
+	Telepít egy meghatározott lépésig:
+	CSharpNagyoknak\01Data\bin\Debug>migrate 01Data.exe /startupConfigurationFile:01Data.exe.config /targetMigration:"201706201130303_Add Severity.Created column" /verbose
+

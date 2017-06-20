@@ -93,6 +93,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Info.txt" />
+    <Content Include="migrate.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706200804228_InitialCreate.resx">
