@@ -30,11 +30,47 @@ Code First:
 DB <--- (Model <---) DbContext
 
 a. Ez az egész borzasztó egyszerűen használható!
-b. a .NET Core hoz fejlesztett EntityFramework Core csak a Code First-öt támogatja
+b. a .NET Core hoz fejlesztett EntityFramework Core csak a Code First Migrations-t támogatja
 
 2. Lépés: adatbázis létrehozása
 
 3. Lépés: adatbázis integrációs teszt
 a.) A tesztek sorrendjében nem érdemes bízni (atomic teszteket kell írni)
 b.) A tesztnek ismételhetőnek kell lennie (A tesztnek pontosan úgy kell elhagynia a helyszínt, ahogy oda érkezett.)
+
+4. Lépés: Adatbázis módosítása
+Ha az adatbázis struktúrán módosítani kell, akkor: Code First Migrations
+Az adatbázis a leginkább "módosításellenálló" része egy projektnek. hagyományos eszközökkel.
+
+Ezért jön a képbe a Code First Migrations
+
+4.0: Bekapcsolás
+
+Package Manager Console:
+(Azon a projekten, ahol a DbContext is van)
+PM> Enable-Migrations
+
+Checking if the context targets an existing database...
+Detected database created with a database initializer. Scaffolded migration '201706200804228_InitialCreate' corresponding to existing database. To use an automatic migration instead, delete the Migrations folder and re-run Enable-Migrations specifying the -EnableAutomaticMigrations parameter.
+Code First Migrations enabled for project 01Data.
+
+4.1: Migrációs lépés létrehozása:
+
+4.2: Migrációs lépés visszavonása:
+
+PM> update-database -TargetMigration
+
+Ha teljesen mindent vissza akarok vonni, akkor:
+PM> update-database -TargetMigration 0
+
+4.3: Minden migrációs lépés telepítése az adatbázisban:
+PM> update-database
+
+4.4: Ha nem telepíteni akarom, hanem megnézni az SQL scriptet, akkor:
+PM> update-database -script
+
+további információk: 
+http://www.entityframeworktutorial.net/code-first/entity-framework-code-first.aspx
+https://coding.abel.nu/2012/02/using-entity-framework-to-create-a-database/
+https://blog.oneunicorn.com/category/entity-framework/code-first/
 

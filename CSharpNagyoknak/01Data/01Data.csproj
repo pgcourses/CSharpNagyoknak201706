@@ -52,6 +52,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201706200804228_InitialCreate.cs" />
+    <Compile Include="Migrations\201706200804228_InitialCreate.Designer.cs">
+      <DependentUpon>201706200804228_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706200935325_TodoItems.Closed nullable.cs" />
+    <Compile Include="Migrations\201706200935325_TodoItems.Closed nullable.Designer.cs">
+      <DependentUpon>201706200935325_TodoItems.Closed nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706200952402_Add Severity table and TodoItem.Severity column.cs" />
+    <Compile Include="Migrations\201706200952402_Add Severity table and TodoItem.Severity column.Designer.cs">
+      <DependentUpon>201706200952402_Add Severity table and TodoItem.Severity column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706200958255_Add TodoItem.SeverityId column.cs" />
+    <Compile Include="Migrations\201706200958255_Add TodoItem.SeverityId column.Designer.cs">
+      <DependentUpon>201706200958255_Add TodoItem.SeverityId column.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Severity.cs" />
     <Compile Include="Model\TodoContext.cs" />
     <Compile Include="Model\TodoItem.cs" />
     <Compile Include="Program.cs" />
@@ -63,6 +81,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201706200804228_InitialCreate.resx">
+      <DependentUpon>201706200804228_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200935325_TodoItems.Closed nullable.resx">
+      <DependentUpon>201706200935325_TodoItems.Closed nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200952402_Add Severity table and TodoItem.Severity column.resx">
+      <DependentUpon>201706200952402_Add Severity table and TodoItem.Severity column.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706200958255_Add TodoItem.SeverityId column.resx">
+      <DependentUpon>201706200958255_Add TodoItem.SeverityId column.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -12,12 +12,19 @@ using System.Threading.Tasks;
 namespace _01Data.Model
 {
     /// <summary>
-    /// Mivel ez az osztály adatbézisba kerül, szükség van arra, hogy 
+    /// Mivel ez az osztály adatbázisba kerül, szükség van arra, hogy 
     /// az adatbázis alapvető összefüggéseit támogassa. Vagyis kell, hogy az 
     /// ebből az osztályból képzett táblának legyen PK-ja (Primary Key: elsődleges kulcs)
     /// </summary>
     public class TodoItem
     {
+        public TodoItem()
+        {
+            IsDone = false;
+            Closed = null;
+            Opened = DateTime.Now;
+        }
+
         /// <summary>
         /// A Code First névkonvenció alapú, tehát, ha 
         /// talál egy Id nevű mezőt, akkor feltételezi, hogy ő a kulcs (Key)
@@ -28,6 +35,9 @@ namespace _01Data.Model
         public string Title { get; set; }
         public bool IsDone { get; set; }
         public DateTime Opened { get; set; }
-        public DateTime Closed { get; set; }
+        public DateTime? Closed { get; set; }
+
+        public int SeverityId { get; set; }
+        public Severity Severity { get; set; }
     }
 }
