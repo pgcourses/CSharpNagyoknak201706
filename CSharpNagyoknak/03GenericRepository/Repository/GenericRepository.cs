@@ -10,106 +10,85 @@ using System.Threading.Tasks;
 
 namespace _03GenericRepository.Repository
 {
-    public class GenericRepository
+    public class GenericRepository<TEntity, TDto, TProfile>
+        where TEntity : class, IClassWithId
+        where TDto: class, IClassWithId
+        where TProfile: Profile, new()
     {
         public GenericRepository()
         {
-            Mapper.Initialize(cfg => cfg.AddProfile<TodoItemProfile>());
+            Mapper.Initialize(cfg => cfg.AddProfile<TProfile>());
         }
 
-        public void Add(TodoItemDTO todoItemDTO)
+        public void Add(TDto dto)
         {
             //COMMENT: Tervezési kérdés a null érték használata
             //http://netacademia.blog.hu/2017/05/30/miert_ne_hasznaljunk_null-t
-            if (null == todoItemDTO)
+            if (null == dto)
             {
-                throw new ArgumentOutOfRangeException(nameof(todoItemDTO));
+                throw new ArgumentOutOfRangeException(nameof(dto));
             }
 
             using (var db = new TodoContext())
             {
 
-                var todoItem = Mapper.Map<TodoItem>(todoItemDTO);
+                var item = Mapper.Map<TEntity>(dto);
 
-                db.TodoItems.Add(todoItem);
-
-                db.SaveChanges();
-                todoItemDTO.Id = todoItem.Id;
-            }
-        }
-
-        public void AddWithId(TodoItemDTO todoItemDTO)
-        {
-            //
-            //COMMENT: Tervezési kérdés a null érték használata
-            //http://netacademia.blog.hu/2017/05/30/miert_ne_hasznaljunk_null-t
-            if (null == todoItemDTO)
-            {
-                throw new ArgumentOutOfRangeException(nameof(todoItemDTO));
-            }
-
-            using (var db = new TodoContext())
-            {
-                //todo: tranzakció
-                db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems on");
-
-                //Az azonosító a mentés után jelenik meg, ezért 
-                //a példány referenciáját megtartom.
-                var todoItem = Mapper.Map<TodoItem>(todoItemDTO);
-
-                db.TodoItems.Add(todoItem);
+                db.Set<TEntity>().Add(item);
 
                 db.SaveChanges();
 
-                db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems off");
-
-                todoItemDTO.Id = todoItem.Id;
+                dto.Id = item.Id;
             }
         }
 
-        public TodoItemDTO Find(int id)
+        public void AddWithId(TDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TDto Find(int id)
         {
             using (var db = new TodoContext())
             {
-                var todoItem = db.TodoItems.Find(id);
+                var item = db.Set<TEntity>().Find(id);
                 //COMMENT: Tervezési kérdés a null érték használata
-                if (null == todoItem)
+                if (null == item)
                 {
-                    return null;
+                    return default(TDto);
                 }
 
-                return Mapper.Map<TodoItemDTO>(todoItem);
+                return Mapper.Map<TDto>(item);
             }
         }
 
-        public void Remove(int todoItemId)
+        public void Remove(int id)
         {
             using (var db = new TodoContext())
             {
-                var todoItem = db.TodoItems.Find(todoItemId);
+                var item = db.Set<TEntity>().Find(id);
                 //COMMENT: null érték használatáról dönteni
-                if (null == todoItem)
+                if (null == item)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(todoItemId));
+                    throw new ArgumentOutOfRangeException(nameof(id));
                 }
 
-                db.TodoItems.Remove(todoItem);
+                db.Set<TEntity>().Remove(item);
                 db.SaveChanges();
             }
         }
 
-        public void Update(TodoItemDTO todoItemDTO)
+        public void Update(TDto dto)
         {
             using (var db = new TodoContext())
             {
-                var todoItem = db.TodoItems.Find(todoItemDTO.Id);
+                var item = db.Set<TEntity>().Find(dto.Id);
                 //COMMENT: null érték használatáról dönteni
-                if (null == todoItem)
+                if (null == item)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(todoItemDTO.Id));
+                    throw new ArgumentOutOfRangeException(nameof(dto.Id));
                 }
-
-                Mapper.Map(todoItemDTO, todoItem);
+                Mapper.Map(dto, item);
 
                 db.SaveChanges();
             }

@@ -16,7 +16,7 @@ namespace _01Data.Model
     /// az adatbázis alapvető összefüggéseit támogassa. Vagyis kell, hogy az 
     /// ebből az osztályból képzett táblának legyen PK-ja (Primary Key: elsődleges kulcs)
     /// </summary>
-    public class TodoItem
+    public class TodoItem : IClassWithId
     {
         public TodoItem()
         {

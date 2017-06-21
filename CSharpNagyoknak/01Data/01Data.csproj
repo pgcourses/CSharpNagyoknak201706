@@ -81,6 +81,7 @@
       <DependentUpon>201706201200077_add Severity records.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\IClassWithId.cs" />
     <Compile Include="Model\Severity.cs" />
     <Compile Include="Model\TodoContext.cs" />
     <Compile Include="Model\TodoItem.cs" />
