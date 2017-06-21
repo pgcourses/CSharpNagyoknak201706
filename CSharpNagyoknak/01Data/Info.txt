@@ -151,3 +151,32 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 	Telepít egy meghatározott lépésig:
 	CSharpNagyoknak\01Data\bin\Debug>migrate 01Data.exe /startupConfigurationFile:01Data.exe.config /targetMigration:"201706201130303_Add Severity.Created column" /verbose
 
+8. Nunit és repository minta
+
+   https://www.nunit.org/
+   https://github.com/nunit/nunit
+
+   Repository minta
+
+   a karbantarthatóság érdekében az általános objektumorientált fejlesztés elveit érdemes használni (design patterns-tervezési minták)
+   a tervezési minták használata mindig jelentősen több munkával jár
+
+   (Adatbázis) <=========> (Entity Framework) <==========> (Alkalmazás)
+                                 (DAL)
+
+   Csatolás: ha egy objektum változásakor NEM KIZÁRHATÓ, hogy a hozzá kapcsolódó objektumon IS változtatni kell, 
+   akkor a két objektum között csatolás van.
+
+   (Adatbázis) <=========> (Entity Framework) <==========> (Alkalmazás)
+                                 (DAL)
+             (erős csatolás)                 (erős csatolás)
+
+
+   Két objektum közötti erős csatolást (például) indirekcióval tudunk eltüntetni.
+
+   (Adatbázis) <=========> (Entity Framework) <==========> (Repository) <==========> (Alkalmazás)
+                                 (DAL)
+             (erős csatolás)                 (erős csatolás)            (erős csatolás)
+
+			                                  <----------(Gyenge csatolás)--------->
+
