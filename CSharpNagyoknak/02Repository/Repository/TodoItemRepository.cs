@@ -5,11 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using _02Repository.DTO;
 using _01Data.Model;
+using AutoMapper;
+using _02Repository.AutoMapper;
 
 namespace _02Repository.Repository
 {
     public class TodoItemRepository
     {
+        public TodoItemRepository()
+        {
+            Mapper.Initialize(cfg => cfg.AddProfile<TodoItemProfile>());
+        }
+
         public void Add(TodoItemDTO todoItemDTO)
         {
             //COMMENT: Tervezési kérdés a null érték használata
@@ -21,17 +28,8 @@ namespace _02Repository.Repository
 
             using (var db = new TodoContext())
             {
-                //Az azonosító a mentés után jelenik meg, ezért 
-                //a példány referenciáját megtartom.
-                var todoItem = new TodoItem
-                {
-                    Id = todoItemDTO.Id,
-                    Title = todoItemDTO.Title,
-                    IsDone = todoItemDTO.IsDone,
-                    Opened = todoItemDTO.Opened,
-                    Closed = todoItemDTO.Closed,
-                    SeverityId = todoItemDTO.SeverityId
-                };
+
+                var todoItem = Mapper.Map<TodoItem>(todoItemDTO);
 
                 db.TodoItems.Add(todoItem);
 
@@ -57,15 +55,7 @@ namespace _02Repository.Repository
 
                 //Az azonosító a mentés után jelenik meg, ezért 
                 //a példány referenciáját megtartom.
-                var todoItem = new TodoItem
-                {
-                    Id = todoItemDTO.Id,
-                    Title = todoItemDTO.Title,
-                    IsDone = todoItemDTO.IsDone,
-                    Opened = todoItemDTO.Opened,
-                    Closed = todoItemDTO.Closed,
-                    SeverityId = todoItemDTO.SeverityId
-                };
+                var todoItem = Mapper.Map<TodoItem>(todoItemDTO);
 
                 db.TodoItems.Add(todoItem);
 
@@ -88,14 +78,7 @@ namespace _02Repository.Repository
                     return null;
                 }
 
-                return  new TodoItemDTO {
-                    Id = todoItem.Id,
-                    Title = todoItem.Title, 
-                    IsDone = todoItem.IsDone,
-                    Opened = todoItem.Opened,
-                    Closed = todoItem.Closed,
-                    SeverityId = todoItem.SeverityId
-                };
+                return Mapper.Map<TodoItemDTO>(todoItem);
             }
         }
 
@@ -126,11 +109,7 @@ namespace _02Repository.Repository
                     throw new ArgumentOutOfRangeException(nameof(todoItemDTO.Id));
                 }
 
-                todoItem.Title = todoItemDTO.Title;
-                todoItem.IsDone = todoItemDTO.IsDone;
-                todoItem.Opened = todoItemDTO.Opened;
-                todoItem.Closed = todoItemDTO.Closed;
-                todoItem.SeverityId = todoItemDTO.SeverityId;
+                Mapper.Map(todoItemDTO, todoItem);
 
                 db.SaveChanges();
             }

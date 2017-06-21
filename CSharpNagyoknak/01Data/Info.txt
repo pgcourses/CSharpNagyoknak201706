@@ -156,7 +156,7 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
    https://www.nunit.org/
    https://github.com/nunit/nunit
 
-   Repository minta
+8.1. Konkrét Repository minta
 
    a karbantarthatóság érdekében az általános objektumorientált fejlesztés elveit érdemes használni (design patterns-tervezési minták)
    a tervezési minták használata mindig jelentősen több munkával jár
@@ -201,7 +201,14 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 	     osztálypéldány között az értékeket átmásoljuk a property nevek alapján.
 
 		 A probléma az, hogy az adatokat tartalmazó osztályok és a mozgató mechanizmus között
-		 ERŐS CSATOLÁS jött létre. Ehhez valahogy egy indirekció jelentené a megoldást.
+		 ERŐS CSATOLÁS jött létre. Ehhez valahogy egy indirekció jelentené a megoldást. (AutoMapper)
+
+		 tehát előnyök: 
+		 c1) az adatkonverziókat kiemeljük a kódból, és együtt, egy helyen tároljuk (Profile)
+		 c2) ha változik valamelyik adatstruktúra, a konverziót használó kódot (Mapper.Map()) kódot nem kell módosítani, 
+		 csak a profile-ban módosítani.
+		 c3) tesztelhetővé teszi a konverziós definíciót
+		 c4) bonyolult konverziót is lehet vele modellezni
 
 		 Figyelem: Entity Framework függőségek
 		 -------------------------------------
@@ -209,3 +216,11 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 		 Repository (Kell az adateléréshez) -> 01Data assembly referencia (TodoContext)
 		 Entity Framwork beállítások betöltése App.Config-ból (Induló projekt)-> EntityFramework referencia (nuget)
 		 Tesztadatok generálása (Teszt projekt) -> 01Data assembly referencia (TodoContext)
+
+8.2. Általános repository minta
+
+	Feladatok:
+	a.) meg kell oldani az adatmodell<-> dto transzformációt (AutoMapper: http://automapper.org/, ellőző bekezdés c.) pont) 
+	b.) készítsünk általános repository-t, amit más táblákra is fel tudunk használni
+
+9. Repository Unit tesztelés
