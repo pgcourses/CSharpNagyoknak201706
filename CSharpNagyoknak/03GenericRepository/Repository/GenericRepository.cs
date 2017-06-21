@@ -5,8 +5,10 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace _03GenericRepository.Repository
 {
@@ -47,11 +49,45 @@ namespace _03GenericRepository.Repository
             throw new NotImplementedException();
         }
 
-        public TDto Find(int id)
+        public TDto Find(int id, params Expression<Func<TEntity, object>>[] includeParams)
         {
             using (var db = new TodoContext())
             {
-                var item = db.Set<TEntity>().Find(id);
+                var query = db.Set<TEntity>()
+                              .AsQueryable();
+
+                foreach (var include in includeParams)
+                {
+                    query = query.Include(include);
+                }
+
+                var item = query.SingleOrDefault(x => x.Id == id);
+                             
+                //COMMENT: Tervezési kérdés a null érték használata
+                if (null == item)
+                {
+                    return default(TDto);
+                }
+
+                return Mapper.Map<TDto>(item);
+            }
+        }
+
+        public TDto Find(Expression<Func<TEntity, bool>> filter, 
+                        params Expression<Func<TEntity, object>>[] includeParams)
+        {
+            using (var db = new TodoContext())
+            {
+                var query = db.Set<TEntity>()
+                              .AsQueryable();
+
+                foreach (var include in includeParams)
+                {
+                    query = query.Include(include);
+                }
+
+                var item = query.SingleOrDefault(filter);
+
                 //COMMENT: Tervezési kérdés a null érték használata
                 if (null == item)
                 {

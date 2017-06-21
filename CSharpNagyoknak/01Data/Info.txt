@@ -236,9 +236,10 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 	a.) meg kell oldani az adatmodell<-> dto transzformációt (AutoMapper: http://automapper.org/, előző bekezdés c.) pont) 
 	b.) készítsünk általános repository-t, amit más táblákra is fel tudunk használni
 
+	navigációs property-khez adalék: https://github.com/AutoMapper/AutoMapper.EF6
 
 
-9. Repository Unit tesztelés (Specflow)
+9. Specflow
 
    http://devportal.hu/bevezetes-a-viselkedesalapu-szoftverfejlesztesbe-bdd-es-a-specflow-hasznalataba/
 
@@ -251,4 +252,8 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 
    konfiguráció: http://go.specflow.org/doc-config
 
+10. Repository és az EntityFramework szolgáltatásai
+	navigációs property-k
+	keresés és szűrés és sorbarendezés LINQ-val
 
+11. Repository Unit tesztelés (Dependency Injection és Mock)

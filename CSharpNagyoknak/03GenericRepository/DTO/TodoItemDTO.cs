@@ -21,5 +21,6 @@ namespace _03GenericRepository.DTO
         public string Title { get; set; }
         public int SeverityId { get; set; }
         public int Id { get; set; }
+        public SeverityDTO Severity { get; set; }
     }
 }
