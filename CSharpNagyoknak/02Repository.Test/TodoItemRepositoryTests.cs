@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using _02Repository.Repository;
 using _02Repository.DTO;
+using AutoMapper;
+using _02Repository.AutoMapper;
 /// <summary>
 /// A repository feladatai:
 /// 
@@ -110,6 +112,14 @@ namespace _02Repository.Test
                 todoItem.Title = "vegyünk tejet";
                 sut.Update(todoItem);
             }
+        }
+        [Test]
+        public void TodoItemRepositoryTests_AutoMapperConfigurationShouldBeValid() //U
+        {
+            //Act, Arrange
+            var mapperConfig = new MapperConfiguration(cfg => cfg.AddProfile<TodoItemProfile>());
+            //Assert
+            mapperConfig.AssertConfigurationIsValid();
         }
     }
 }

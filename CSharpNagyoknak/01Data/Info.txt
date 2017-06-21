@@ -210,6 +210,19 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 		 c3) tesztelhetővé teszi a konverziós definíciót
 		 c4) bonyolult konverziót is lehet vele modellezni
 
+		 Működése
+
+		 TodoItem                      TodoItemDTO
+		 -----------------------------------------
+		 Id                            Id
+         Title                         Title
+         IsDone                        IsDone	
+         Opened                        Opened
+         Closed                        Closed
+		 SeverityId                    SeverityId
+		 Severity
+
+
 		 Figyelem: Entity Framework függőségek
 		 -------------------------------------
 		 Repository (Kell az adateléréshez) -> Entity Framework referencia

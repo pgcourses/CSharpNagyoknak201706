@@ -19,8 +19,20 @@ namespace _02Repository.AutoMapper
         /// </summary>
         public TodoItemProfile()
         {
-            CreateMap<TodoItemDTO, TodoItem>();
-            CreateMap<TodoItem, TodoItemDTO>();
+            CreateMap<TodoItemDTO, TodoItem>()
+                //ha nincs felsorolva itt a property, akkor névazonosság alapján értéket másolunk
+                //ha csak céloldalon van, a forrásban nincs, akkor így jelezzük, hogy nem kell vele foglalkozni
+                .ForMember(d=>d.Severity, o=>o.Ignore())
+                //Így pedig adatkonverziót tudunk előírni
+                //csupa nagybetűvé alakítjuk az adatokat
+                .ForMember(d=>d.Title, o=>o.MapFrom(s=>s.Title.ToUpper()))
+                ;
+
+
+            CreateMap<TodoItem, TodoItemDTO>()
+                //csupa kisbetűvé alakítjuk az adatokat
+                //.ForMember(d => d.Title, o => o.MapFrom(s => s.Title.ToLower()))
+                ;
         }
     }
 }
