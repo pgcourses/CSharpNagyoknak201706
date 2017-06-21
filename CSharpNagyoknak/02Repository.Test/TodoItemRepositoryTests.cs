@@ -26,19 +26,24 @@ namespace _02Repository.Test
                 IsDone = false,
                 Opened = DateTime.Now,
                 Closed = null,
-                //TODO: (RepoTest) a 3-as Severityt létrehozni a tesztadatok közé
                 SeverityId = 3
             };
 
-            //Arrange
-            sut.Add(todoItem);
-            var newTotoItem = sut.Find(todoItem.Id);
+            try
+            {
+                //Arrange
+                sut.Add(todoItem);
+                var newTotoItem = sut.Find(todoItem.Id);
 
-            //Assert
-            Assert.IsNotNull(newTotoItem);
-            Assert.AreEqual(todoItem.Title, newTotoItem.Title);
+                //Assert
+                Assert.IsNotNull(newTotoItem);
+                Assert.AreEqual(todoItem.Title, newTotoItem.Title);
+            }
+            finally
+            {
+                sut.Remove(todoItem.Id);
+            }
 
-            //TODO: visszaállítani az adatbázis (repository) eredeti állapotát
         }
 
         [Test]
@@ -50,16 +55,22 @@ namespace _02Repository.Test
             //var todoItem = sut.Find(1); 
             // sut.Remove(todoItem); //repo törlés, ld. az Info.txt-ben
 
-            //Arrange
-            //TODO: (RepoTest) biztosítani 1-es TodoItem-et a tesztadatokban
-            var todoItemId = 1;
-            sut.Remove(todoItemId);
-            var newTotoItem = sut.Find(todoItemId);
+            try
+            {
+                //Arrange
+                var todoItemId = 1;
+                sut.Remove(todoItemId);
+                var newTotoItem = sut.Find(todoItemId);
 
-            //Assert
-            Assert.IsNull(newTotoItem);
+                //Assert
+                Assert.IsNull(newTotoItem);
 
-            //TODO: visszaállítani az adatbázis (repository) eredeti állapotát
+            }
+            finally
+            {
+                //TODO: (RepoTest) visszaállítani az adatbázis (repository) eredeti állapotát
+
+            }
         }
 
         [Test]
@@ -67,7 +78,6 @@ namespace _02Repository.Test
         {
             var sut = new TodoItemRepository();
 
-            //TODO: (RepoTest) biztosítani 1-es TodoItem-et a tesztadatokban
             var todoItem = sut.Find(2);
 
             Assert.IsNotNull(todoItem);
@@ -81,19 +91,25 @@ namespace _02Repository.Test
 
             //Arrange
             var todoItem = sut.Find(1);
+            Assert.IsNotNull(todoItem, "Nincs tesztadat (Id=1)!");
 
-            //TODO: (RepoTest) biztosítani 1-es TodoItem-et a tesztadatokban, aminek nem ez a címe
-            todoItem.Title = "Ez egy új feladatleírás";
-            sut.Update(todoItem);
+            try
+            {
+                todoItem.Title = "Ez egy új feladatleírás";
+                sut.Update(todoItem);
 
-            var newTodoItem = sut.Find(1);
+                var newTodoItem = sut.Find(1);
+                Assert.IsNotNull(newTodoItem);
 
-            //Assert
-            Assert.AreEqual("Ez egy új feladatleírás", newTodoItem.Title);
+                //Assert
+                Assert.AreEqual("Ez egy új feladatleírás", newTodoItem.Title);
 
-
-            //TODO: visszaállítani az adatbázis (repository) eredeti állapotát
+            }
+            finally
+            {
+                todoItem.Title = "vegyünk tejet";
+                sut.Update(todoItem);
+            }
         }
-
     }
 }

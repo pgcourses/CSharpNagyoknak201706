@@ -197,3 +197,14 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 	 mechanizmusából mit tudunk használni. És a válasz az, hogy mivel az eredeti model-t leváltottuk DTO-ra, 
 	 így nem tudunk belőle semmit felhasználni.
 
+     c.) Az adatok mozgatása mennyiségi kérdéssé vált, meg kéne oldani, hogy két majdnem azonos struktúrájú
+	     osztálypéldány között az értékeket átmásoljuk a property nevek alapján.
+
+		 A probléma az, hogy az adatokat tartalmazó osztályok és a mozgató mechanizmus között
+		 ERŐS CSATOLÁS jött létre. Ehhez valahogy egy indirekció jelentené a megoldást.
+
+		 Figyelem: Entity Framework függőségek
+		 Repository (Kell az adateléréshez) -> Entity Framework referencia
+		 Repository (Kell az adateléréshez) -> 01Data assembly referencia (TodoContext)
+		 Entity Framwork beállítások betöltése App.Config-ból (Induló projekt)-> EntityFramework referencia (nuget)
+		 Tesztadatok generálása (Teszt projekt) -> 01Data assembly referencia (TodoContext)
