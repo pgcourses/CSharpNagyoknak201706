@@ -25,7 +25,7 @@ namespace _03GenericRepository.AutoMapper
                 .ForMember(d=>d.Severity, o=>o.Ignore())
                 //Így pedig adatkonverziót tudunk előírni
                 //csupa nagybetűvé alakítjuk az adatokat
-                .ForMember(d=>d.Title, o=>o.MapFrom(s=>s.Title.ToUpper()))
+                //.ForMember(d=>d.Title, o=>o.MapFrom(s=>s.Title.ToUpper()))
                 ;
 
 

@@ -2,7 +2,7 @@
 
 namespace _01Data.Model
 {
-    public class Severity
+    public class Severity : IClassWithId
     {
         //Ha a kulcsmező nem követi a névkonvenciót akkor 
         //[Key] attributum kell a mezőre

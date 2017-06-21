@@ -93,7 +93,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
  testRunner.When("rákeresek egy létező elemre", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Ha ");
 #line 13
- testRunner.Then("meg kell találnom", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Akkor ");
+ testRunner.Then("annak látszódnia kell a repoban.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Akkor ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -34,14 +34,17 @@ namespace _03GenericRepository.Test
             };
 
             repo.Add(todoItem);
+            todoItem = repo.Find(todoItem.Id);
+            Console.WriteLine("Új elem visszakeresve: {0}", JsonConvert.SerializeObject(todoItem));
         }
-        
+
         [When(@"rákeresek egy létező elemre")]
         public void MajdRakeresekEgyLetezoElemre()
         {
-            ScenarioContext.Current.Pending();
+            todoItem = repo.Find(2);
+            Console.WriteLine("Elem visszakeresve: {0}", JsonConvert.SerializeObject(todoItem));
         }
-        
+
         [When(@"törlök egy létező elemet,")]
         public void MajdTorlokEgyLetezoElemet()
         {
@@ -57,15 +60,8 @@ namespace _03GenericRepository.Test
         [Then(@"annak látszódnia kell a repoban\.")]
         public void AkkorAnnakLatszodniaKellARepoban_()
         {
-            var newTodoItem = repo.Find(todoItem.Id);
-            Console.WriteLine("Új elem visszakeresve: {0}", JsonConvert.SerializeObject(newTodoItem));
-            Assert.IsNotNull(newTodoItem);
-        }
-        
-        [Then(@"meg kell találnom")]
-        public void AkkorMegKellTalalnom()
-        {
-            ScenarioContext.Current.Pending();
+            Assert.IsNotNull(todoItem);
+            todoItem = null;
         }
         
         [Then(@"annak el kell tűnnie")]

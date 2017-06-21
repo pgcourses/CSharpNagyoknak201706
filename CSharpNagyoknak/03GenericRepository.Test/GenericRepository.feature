@@ -10,7 +10,7 @@ Forgatókönyv: GenericRepo Hozzáadás
 Forgatókönyv: GenericRepo Keresés
 	Adott egy GenericRepo
 	Ha rákeresek egy létező elemre
-	Akkor meg kell találnom
+	Akkor annak látszódnia kell a repoban.
 
 Forgatókönyv: GenericRepo Törlés
 	Adott egy GenericRepo
