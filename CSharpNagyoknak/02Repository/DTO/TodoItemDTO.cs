@@ -8,6 +8,12 @@ namespace _02Repository.DTO
 {
     public class TodoItemDTO
     {
+        public TodoItemDTO()
+        {
+            IsDone = false;
+            Closed = null;
+            Opened = DateTime.Now;
+        }
         public DateTime? Closed { get; set; }
         public bool IsDone { get; set; }
         public DateTime Opened { get; set; }

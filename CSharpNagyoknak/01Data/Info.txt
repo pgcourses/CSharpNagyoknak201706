@@ -12,7 +12,7 @@ Változás              <-(Push)---
 A feladatunk, hogy egy todo alkalmazást készítsünk, legalábbis a back-endjét, adatbázissal és kiszolgáló webapi-val.
 
 1. Lépés: adatbázis hozzáférés választása
-EntityFramework Code First (Migrations)
+EntityFramework Code First (Migrations) https://github.com/aspnet/EntityFramework6
 
 EntityFramework: ORM (Object Relational Mapper)
 Code First 
@@ -204,6 +204,7 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 		 ERŐS CSATOLÁS jött létre. Ehhez valahogy egy indirekció jelentené a megoldást.
 
 		 Figyelem: Entity Framework függőségek
+		 -------------------------------------
 		 Repository (Kell az adateléréshez) -> Entity Framework referencia
 		 Repository (Kell az adateléréshez) -> 01Data assembly referencia (TodoContext)
 		 Entity Framwork beállítások betöltése App.Config-ból (Induló projekt)-> EntityFramework referencia (nuget)

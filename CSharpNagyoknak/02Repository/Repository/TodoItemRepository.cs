@@ -40,6 +40,43 @@ namespace _02Repository.Repository
             }
         }
 
+        public void AddWithId(TodoItemDTO todoItemDTO)
+        {
+            //
+            //COMMENT: Tervezési kérdés a null érték használata
+            //http://netacademia.blog.hu/2017/05/30/miert_ne_hasznaljunk_null-t
+            if (null == todoItemDTO)
+            {
+                throw new ArgumentOutOfRangeException(nameof(todoItemDTO));
+            }
+
+            using (var db = new TodoContext())
+            {
+                //todo: tranzakció
+                db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems on");
+
+                //Az azonosító a mentés után jelenik meg, ezért 
+                //a példány referenciáját megtartom.
+                var todoItem = new TodoItem
+                {
+                    Id = todoItemDTO.Id,
+                    Title = todoItemDTO.Title,
+                    IsDone = todoItemDTO.IsDone,
+                    Opened = todoItemDTO.Opened,
+                    Closed = todoItemDTO.Closed,
+                    SeverityId = todoItemDTO.SeverityId
+                };
+
+                db.TodoItems.Add(todoItem);
+
+                db.SaveChanges();
+
+                db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems off");
+
+                todoItemDTO.Id = todoItem.Id;
+            }
+        }
+
         public TodoItemDTO Find(int id)
         {
             using (var db = new TodoContext())

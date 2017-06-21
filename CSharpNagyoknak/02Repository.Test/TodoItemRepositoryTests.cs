@@ -68,8 +68,8 @@ namespace _02Repository.Test
             }
             finally
             {
-                //TODO: (RepoTest) visszaállítani az adatbázis (repository) eredeti állapotát
-
+                var todoItem = new TodoItemDTO { Id = 1, Title = "vegyünk tejet", SeverityId = 1 };
+                sut.AddWithId(todoItem);
             }
         }
 
