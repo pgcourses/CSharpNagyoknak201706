@@ -239,3 +239,16 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 
 
 9. Repository Unit tesztelés (Specflow)
+
+   http://devportal.hu/bevezetes-a-viselkedesalapu-szoftverfejlesztesbe-bdd-es-a-specflow-hasznalataba/
+
+   http://specflow.org/
+   https://github.com/techtalk/SpecFlow
+
+   http://behaviourdriven.org/
+   http://www.martinfowler.com/bliki/BusinessReadableDSL.html
+   https://github.com/cucumber/cucumber/wiki/Gherkin
+
+   konfiguráció: http://go.specflow.org/doc-config
+
+
