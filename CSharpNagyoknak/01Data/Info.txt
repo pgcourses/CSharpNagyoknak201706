@@ -233,7 +233,9 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 8.2. Általános repository minta
 
 	Feladatok:
-	a.) meg kell oldani az adatmodell<-> dto transzformációt (AutoMapper: http://automapper.org/, ellőző bekezdés c.) pont) 
+	a.) meg kell oldani az adatmodell<-> dto transzformációt (AutoMapper: http://automapper.org/, előző bekezdés c.) pont) 
 	b.) készítsünk általános repository-t, amit más táblákra is fel tudunk használni
 
-9. Repository Unit tesztelés
+
+
+9. Repository Unit tesztelés (Specflow)
