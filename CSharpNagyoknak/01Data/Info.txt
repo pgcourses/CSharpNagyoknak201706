@@ -180,3 +180,20 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 
 			                                  <----------(Gyenge csatolás)--------->
 
+  Feladatok:
+     a.) beburkolni az Entity Framework-öt (01Data), és saját osztállyal kiváltani
+	 b.) lecserélni valamennyi típust, amit az EF használ, és saját osztállyal kiváltani
+	     ez valójában modell adatok utaztatását jelenti, erre a DTO (Data Transfer Object)
+		 fogalom lesz a segítségünkre.
+		 https://martinfowler.com/eaaCatalog/dataTransferObject.html
+
+     tehát nem csak a műveleteket kell beburkolnunk, hanem az adatokat is.
+
+	 A DTO-k használatával ki lehet váltani a hosszú függvénylistákat, és 
+	 ha változik a paraméter akkor elég egy helyen a DTO osztályomat vátoztatni,
+	 egyből minden függvényreferenciára hat
+
+	 A repository törlésnél kérdés, hogy az Entity Framework konkurens modósítási 
+	 mechanizmusából mit tudunk használni. És a válasz az, hogy mivel az eredeti model-t leváltottuk DTO-ra, 
+	 így nem tudunk belőle semmit felhasználni.
+
