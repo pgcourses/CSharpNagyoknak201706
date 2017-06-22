@@ -57,6 +57,18 @@ namespace _03GenericRepository.Repository
             throw new NotImplementedException();
         }
 
+        public TDto Find(int id)
+        {
+            var item = db.Set<TEntity>().Find(id);
+            //COMMENT: Tervezési kérdés a null érték használata
+            if (null == item)
+            {
+                return default(TDto);
+            }
+
+            return Mapper.Map<TDto>(item);
+        }
+
         public TDto Find(int id, params Expression<Func<TEntity, object>>[] includeParams)
         {
             var query = db.Set<TEntity>()

@@ -37,7 +37,7 @@ namespace _01Data.Model
         { }
 
         //2. Össze kell kötni az adatokat reprezentáló osztályt az elérési osztállyal.
-        public virtual DbSet<TodoItem> TodoItems { get; set; }
-        public virtual DbSet<Severity> Severities { get; set; }
+        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<Severity> Severities { get; set; }
     }
 }

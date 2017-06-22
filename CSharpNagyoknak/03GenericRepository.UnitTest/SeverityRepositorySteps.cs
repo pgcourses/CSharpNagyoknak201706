@@ -4,6 +4,9 @@ using _03GenericRepository.UnitTest.FakeObjects;
 using Moq;
 using NUnit.Framework;
 using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using TechTalk.SpecFlow;
 
 namespace _03GenericRepository.UnitTest
@@ -16,12 +19,70 @@ namespace _03GenericRepository.UnitTest
         [Given(@"egy SeverityRepository")]
         public void AmennyibenEgySeverityRepository()
         {
+            var mockContext = MockContextFactory();
+            sut = new SeverityRepository(mockContext);
+        }
+
+        private static TodoContext MockContextFactory()
+        {
             //sut = new SeverityRepository(new FakeContext());
 
             var mockContext = new Mock<TodoContext>();
-            sut = new SeverityRepository(mockContext.Object);
+
+            //A Strict beállítás segítségével a Mock mindig szól, ha olyan 
+            //dolgot használnak a Mockolt példányon, ami nincs beállítva.
+
+            //1. feladat: 
+            //Moq.MockException : DbContext.Set<TodoItem>() invocation failed with mock behavior Strict.
+            //All invocations on the mock must have a corresponding setup.
+            //Vagyis: válaszolni erre a hívásra: DbContext.Set<TodoItem>()
+
+            //mockContext.Setup(ctx => ctx.Set<TodoItem>()) //Abban az esetben ha ezt a függvényt hívják
+            //           .Returns();                      //Arra ezt kell válaszolni.
+
+            //2. Ebből következő feladat, hogy legyen DbSet<TodoItem> osztályunk.
+            //Viszont, ebből meg az látszik, hogy vannak számunkra lényegtelen belső hívások,
+            //amiknek az implementálása csak az időt viszi. Vagyis, ezt nem folytatjuk.
+
+            //3. Az biztos, hogy kell majd valami lista a Severity példányokból, amin munkálkodik a dublőr
+            var list = new List<Severity>(new Severity[] {
+                new Severity { Id=1, Title="Baromi fontos" },
+                new Severity { Id=2, Title="Kit érdekel" },
+            });
+
+            var mockDbSet = new Mock<DbSet<Severity>>();
+
+            //4. Ahhoz, hogy hozzáadni tudjunk, kell az Add függvény setupja a DbSet-en
+            mockDbSet.Setup(set => set.Add(It.IsAny<Severity>())) //jelzem, hogy az add bármilyen paramétere esetén él ez a setup
+                     .Callback<Severity>(severity => //jelzem a várt paraméter típusát, és utána használhatom
+                     {
+                         severity.Id = list.Count + 1; //szimuláljuk a listába felvételkor, hogy az azonosító ugrik egyet.
+                         list.Add(severity);
+                     });
+
+            //5. Ahhoz, hogy keresni tudjunk, a DbSet-nek tudnia kell keresni
+            mockDbSet.Setup(set => set.Find(It.IsAny<object[]>())) //bármilyen objektumtömb esetén (A DbSet fel van készítve kompozit indexekre is, vagyis, ha az index több mezőből áll)
+                     .Returns<object[]>(keyValues => list.Find(x => x.Id == (int)keyValues[0])); //mi csak egy mezőt használunk, és ez int, tehát ezt leírhatom.
+
+
+            //Extra: hogy kell az update-et és a deletet setupolni:
+            //delete
+            mockDbSet.Setup(set => set.Remove(It.IsAny<Severity>()))
+                     .Callback<Severity>(severity => list.Remove(severity));
+
+            //update
+            //TODO: hogy kell Delete-et mockolni???
+            //mockDbSet.Setup()
+
+            //6. Végül, a DbContext-nek megadjuk az így felparaméterezett DbSet-et, hogy ezt adja vissza, ha
+            //   valaki kéri tőle.
+            mockContext.Setup(ctx => ctx.Set<Severity>()) //Abban az esetben ha ezt a függvényt hívják
+                       .Returns(mockDbSet.Object);      //Arra ezt kell válaszolni.
+
+            //7. Legvégül, kész a TodoContext, ezt adom át a repositorynak, így ezt fogja tudni használni.
+            return mockContext.Object;
         }
-        
+
         [When(@"egy új elemet rögzítek a SeverityRepository-ban")]
         public void MajdEgyUjElemetRogzitekASeverityRepository_Ban()
         {
@@ -49,7 +110,7 @@ namespace _03GenericRepository.UnitTest
         [Then(@"annak látszódnia kell a SeverityRepository-ban\.")]
         public void AkkorAnnakLatszodniaKellASeverityRepository_Ban_()
         {
-            var severity = sut.Find(s => s.Title == "Ez itt egy akármi bármi");
+            var severity = sut.Find(3);
             Assert.IsNotNull(severity);
         }
         

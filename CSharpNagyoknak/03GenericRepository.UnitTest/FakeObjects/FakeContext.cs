@@ -19,31 +19,31 @@ namespace _03GenericRepository.UnitTest.FakeObjects
         private List<Severity> severities = new List<Severity>(); //Ez tartalmazhatná az adatokat
         private DbSet<Severity> severitiesSet; //= new DbSet<Severity>(); //Ezt egyáltalán nem lehet így példányosítani
 
-        public override DbSet<TodoItem> TodoItems
-        {
-            get
-            {
-                return base.TodoItems;
-            }
+        //public override DbSet<TodoItem> TodoItems
+        //{
+        //    get
+        //    {
+        //        return base.TodoItems;
+        //    }
 
-            set
-            {
-                base.TodoItems = value;
-            }
-        }
+        //    set
+        //    {
+        //        base.TodoItems = value;
+        //    }
+        //}
 
-        public override DbSet<Severity> Severities
-        {
-            get
-            {
-                //return severities; //mivel ez lista, DbSet-té nem tudjuk egyszerűen alakítani
-                return severitiesSet; 
-            }
+        //public override DbSet<Severity> Severities
+        //{
+        //    get
+        //    {
+        //        //return severities; //mivel ez lista, DbSet-té nem tudjuk egyszerűen alakítani
+        //        return severitiesSet; 
+        //    }
 
-            set
-            {
-                base.Severities = value;
-            }
-        }
+        //    set
+        //    {
+        //        base.Severities = value;
+        //    }
+        //}
     }
 }
