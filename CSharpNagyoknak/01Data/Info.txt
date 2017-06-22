@@ -360,5 +360,15 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 
 
 13. Reflexió (Reflection)
-    
+    Bármi lekérdezhető egy assembly felületéről
 
+14. Attributumok használata
+    Metaadatok:
+		Önállóan nem használt, osztályok, amik egyes más osztályokról tartalmaznak információkat. Gyakorlatilag az osztálydefiníció része
+		   arra vannak, hogy a működést befolyásolják.
+		Tartozhatnak Osztályhoz, Property-hez, Mezőhöz, metódushoz.
+
+	Vagyis: három részből áll az attributum "domain"
+	1. Attributum definíció (Ez megmondja, hogy mit jelent egy-egy dekoráció)
+	2. Attributum használat (Dekoráljuk az osztályt, függvényt, property-t)
+	3. Attributum működés (a környezet figyeli az attributumokat, és annak megfelelően módosítja a viselkedést.)

@@ -52,7 +52,6 @@ namespace _05Reflection
                 var prms = string.Join(",", paramInfos.Select(pi => $"{pi.ParameterType.Name} {pi.Name}"));
                 Console.WriteLine("{0} {1} ({2})",methodInfo.ReturnType.Name, methodInfo.Name, prms);
             }
-            
         }
 
         public static string DatumEsIdo()
