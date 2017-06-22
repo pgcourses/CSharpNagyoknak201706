@@ -54,6 +54,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeObjects\FakeContext.cs" />
+    <Compile Include="GenericRepository.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GenericRepository.feature</DependentUpon>
+    </Compile>
+    <Compile Include="GenericRepositorySteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepositoryExtensions.feature.cs">
       <AutoGen>True</AutoGen>
@@ -61,14 +68,28 @@
       <DependentUpon>RepositoryExtensions.feature</DependentUpon>
     </Compile>
     <Compile Include="RepositoryKiegeszitoSzolgaltatasokSteps.cs" />
+    <Compile Include="SeverityRepository.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SeverityRepository.feature</DependentUpon>
+    </Compile>
+    <Compile Include="SeverityRepositorySteps.cs" />
     <Compile Include="TestDataInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="GenericRepository.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GenericRepository.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="RepositoryExtensions.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>RepositoryExtensions.feature.cs</LastGenOutput>
+    </None>
+    <None Include="SeverityRepository.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SeverityRepository.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

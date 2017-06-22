@@ -57,6 +57,7 @@
     <Compile Include="AutoMapper\TodoItemProfile.cs" />
     <Compile Include="DTO\SeverityDTO.cs" />
     <Compile Include="DTO\TodoItemDTO.cs" />
+    <Compile Include="Repository\GenericRepositoryWithUsing.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\SeverityRepository.cs" />

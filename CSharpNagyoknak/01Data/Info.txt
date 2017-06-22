@@ -335,3 +335,25 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
    Hogy tudjuk elkerülni? IDisposable minta.
 
 12. Repository Unit tesztelés (Dependency Injection és Mock)
+    A Unit teszteléshez arra van szükség, hogy ne integrációs tesztet írjunk, vagyis csak a repository osztályt szeretnénk tesztelni.
+
+	Ahhoz, hogy Unit teszteljük, nem lehetnek beágyazott függőségei (var db=new TodoContext())
+	A beágyazott függőség elkerüléséhez a bejáratott út a Dependency Injection (DI), vagyis a függőséget kívülről 
+	küldöm az osztályba.
+	Vagyis, a függőségek példányosítása a hívó fél feladata
+	
+	Miután megvagyunk a paramétere konstruktor és a köré épített rendszerrel, kérdés, hogy mivel tudjuk
+	unit tesztelni a programunkat?
+
+	szükségünk van egy olyan példányra, ami tökre olyan, mint a TodoContext, de csak azt tudja, ami a Unit teszteléshez kell.
+	   
+	a.) leszármaztathatnánk a TodoContext-et (Fake), és ha jól előkészítjük, akkor a unit tesztre tudna válaszolni.
+	b.) készíthetnénk egy felületet (ITodoContext), ami tartalmazza a lényeget a TodoContext-ből és azt implementálnánk a todoContext-ben és a 
+	    fake-ben is, és ha ezt a felületet várjuk a repo-ban, akkor a Fake-et is be tudjuk küldeni.
+
+	c.) Keresünk egy dublőrt, aki eljátssza, hogy ő a TodoContext. Erre szolgál a Mock keretrendszer.
+
+
+
+
+

@@ -14,6 +14,21 @@ namespace _03GenericRepository.Repository
 {
     public class TodoItemRepository : GenericRepository<TodoItem, TodoItemDTO, TodoItemProfile>
     {
+        /// <summary>
+        /// Ez a konstruktor biztosítja az utat a DI paraméter beküldéséhez
+        /// </summary>
+        /// <param name="db"></param>
+        public TodoItemRepository(TodoContext db) : base(db)
+        { }
+
+        /// <summary>
+        /// Az előző konstruktor miatt a fordító nem generál paraméternélküli konstruktort, 
+        /// így ezt nekünk kell legyártani. Hogy jól működjön, meg kell hívnunk
+        /// a alaposztály paraméter nélküli konstruktorát
+        /// </summary>
+        public TodoItemRepository() : base()
+        { }
+
         //Mivel megoldottuk általánosan, ezt ki tudjuk dobni
         //public TodoItemDTO FindWithSeverity(int id, params Expression<Func<TodoItem, object>>[] includeParams)
         //{

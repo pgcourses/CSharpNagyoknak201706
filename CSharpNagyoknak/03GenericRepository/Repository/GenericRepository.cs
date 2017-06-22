@@ -17,8 +17,21 @@ namespace _03GenericRepository.Repository
         where TDto: class, IClassWithId
         where TProfile: Profile, new()
     {
-        public GenericRepository()
+        private readonly TodoContext db;
+
+        /// <summary>
+        /// "Visszamenőleges kompatibilitás": 
+        /// ha paraméter nélkül hívják a repo-t, 
+        /// biztosítjuk a korábbi működést
+        /// TODO: mi lesz a TodoContext : DbContext : IDisposable megoldással, ha 
+        ///       itt példányosítok using helyett???
+        /// </summary>
+        public GenericRepository() : this(new TodoContext())
+        { }
+
+        public GenericRepository(TodoContext db)
         {
+            this.db = db;
             Mapper.Initialize(cfg => cfg.AddProfile<TProfile>());
         }
 
@@ -31,17 +44,12 @@ namespace _03GenericRepository.Repository
                 throw new ArgumentOutOfRangeException(nameof(dto));
             }
 
-            using (var db = new TodoContext())
-            {
+            var item = Mapper.Map<TEntity>(dto);
 
-                var item = Mapper.Map<TEntity>(dto);
+            db.Set<TEntity>().Add(item);
+            db.SaveChanges();
 
-                db.Set<TEntity>().Add(item);
-
-                db.SaveChanges();
-
-                dto.Id = item.Id;
-            }
+            dto.Id = item.Id; //visszaküldjük a mentés után visszakapott azonosítót
         }
 
         public void AddWithId(TDto dto)
@@ -51,83 +59,71 @@ namespace _03GenericRepository.Repository
 
         public TDto Find(int id, params Expression<Func<TEntity, object>>[] includeParams)
         {
-            using (var db = new TodoContext())
+            var query = db.Set<TEntity>()
+                            .AsQueryable();
+
+            foreach (var include in includeParams)
             {
-                var query = db.Set<TEntity>()
-                              .AsQueryable();
-
-                foreach (var include in includeParams)
-                {
-                    query = query.Include(include);
-                }
-
-                var item = query.SingleOrDefault(x => x.Id == id);
-                             
-                //COMMENT: Tervezési kérdés a null érték használata
-                if (null == item)
-                {
-                    return default(TDto);
-                }
-
-                return Mapper.Map<TDto>(item);
+                query = query.Include(include);
             }
+
+            var item = query.SingleOrDefault(x => x.Id == id);
+                             
+            //COMMENT: Tervezési kérdés a null érték használata
+            if (null == item)
+            {
+                return default(TDto);
+            }
+
+            return Mapper.Map<TDto>(item);
         }
 
         public TDto Find(Expression<Func<TEntity, bool>> filter, 
                         params Expression<Func<TEntity, object>>[] includeParams)
         {
-            using (var db = new TodoContext())
+            var query = db.Set<TEntity>()
+                            .AsQueryable();
+
+            foreach (var include in includeParams)
             {
-                var query = db.Set<TEntity>()
-                              .AsQueryable();
-
-                foreach (var include in includeParams)
-                {
-                    query = query.Include(include);
-                }
-
-                var item = query.SingleOrDefault(filter);
-
-                //COMMENT: Tervezési kérdés a null érték használata
-                if (null == item)
-                {
-                    return default(TDto);
-                }
-
-                return Mapper.Map<TDto>(item);
+                query = query.Include(include);
             }
+
+            var item = query.SingleOrDefault(filter);
+
+            //COMMENT: Tervezési kérdés a null érték használata
+            if (null == item)
+            {
+                return default(TDto);
+            }
+
+            return Mapper.Map<TDto>(item);
         }
 
         public void Remove(int id)
         {
-            using (var db = new TodoContext())
+            var item = db.Set<TEntity>().Find(id);
+            //COMMENT: null érték használatáról dönteni
+            if (null == item)
             {
-                var item = db.Set<TEntity>().Find(id);
-                //COMMENT: null érték használatáról dönteni
-                if (null == item)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(id));
-                }
-
-                db.Set<TEntity>().Remove(item);
-                db.SaveChanges();
+                throw new ArgumentOutOfRangeException(nameof(id));
             }
+
+            db.Set<TEntity>().Remove(item);
+            db.SaveChanges();
         }
 
         public void Update(TDto dto)
         {
-            using (var db = new TodoContext())
+            var item = db.Set<TEntity>().Find(dto.Id);
+            //COMMENT: null érték használatáról dönteni
+            if (null == item)
             {
-                var item = db.Set<TEntity>().Find(dto.Id);
-                //COMMENT: null érték használatáról dönteni
-                if (null == item)
-                {
-                    throw new ArgumentOutOfRangeException(nameof(dto.Id));
-                }
-                Mapper.Map(dto, item);
-
-                db.SaveChanges();
+                throw new ArgumentOutOfRangeException(nameof(dto.Id));
             }
+            Mapper.Map(dto, item);
+
+            db.SaveChanges();
         }
     }
 }
