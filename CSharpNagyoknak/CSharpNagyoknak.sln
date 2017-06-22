@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03GenericRepository.Test", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03GenericRepository.UnitTest", "03GenericRepository.UnitTest\03GenericRepository.UnitTest.csproj", "{377FBF6E-67CD-4547-9C07-C8B1CE3D09D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04GarbageCollector", "04GarbageCollector\04GarbageCollector.csproj", "{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{377FBF6E-67CD-4547-9C07-C8B1CE3D09D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{377FBF6E-67CD-4547-9C07-C8B1CE3D09D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{377FBF6E-67CD-4547-9C07-C8B1CE3D09D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

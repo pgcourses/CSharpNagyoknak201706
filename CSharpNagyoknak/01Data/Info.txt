@@ -256,4 +256,82 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 	navigációs property-k
 	keresés és szűrés és sorbarendezés LINQ-val
 
-11. Repository Unit tesztelés (Dependency Injection és Mock)
+11. Szemétgyűjtő (Garbage Collector, GC) és következményei
+
+	Változótípusok:
+	Értéktípus: int, float, ... bool, (STACK), 
+		Hátrány: ehhez tudnom kell a tárolás méretét, tehát csak ismert hossz kerülhet bele. 
+		Előny: Csak egy veremmutatót kell átállítani az adminisztrációhoz. Általában gyorsabb is mint a HEAP. 
+	Referenciatípus: minden más, gyakorlatilag ami osztálypéldány (HEAP), nem tudom a méretet előre
+		Előny: (elméletileg) bármilyen méret kerülhet bele
+		Hátrány: adminisztrálni kell
+
+    a. Nyilván kell tartani, hogy hol van foglalt és hol nem foglalt a memória
+	b. le kell foglalni az új elem helyét
+	c. Ha valamire nincs szükség fel kell szabadítani
+	d. Időről időre tömöríteni kell
+
+	A menedzselt nyelveknél a HEAP kezelését a GC végzi.
+    
+	Memória típusok
+
+	| STACK (Verem) |                    | HEAP (Halom)     |
+	-----------------                    --------------------
+	|  (mutató) ----|--------------------|>(osztálypéldány) |
+	|               |                    |                  |
+	| (int)         |                    | [...][......][...|
+	|---------------|                    |...]        [..]  |
+	| [main()xxxxxx |                    |          [.....] |
+	| xxxxxxxx]     |                    |                ^ |
+	|         ^     |                    |                | |
+              |                                           |
+			  |                                           |
+	           Veremmutató                                Heap végét mutató
+
+    A HEAP és a GC működése:
+
+	Ezt az egész adminisztrációt egy folyamatban végzi.
+
+	0. a GC minden elemet szemétnek jelöl
+	1. Felderíti a root elemeket. Ehhez
+	   a.) az érvényben lévő változók szerepelnek a STACK memóriában
+	   b.) statikus változók
+	   c.) + néhány speciális verem, amit GC használ (pl.: finalizer queue)
+
+	2. A root elemkből elindulva felderíti az elérhető változók fáját
+	3. Az elérhető elemeket megjelöli, hogy élők
+	4. Egy lépésben az összes szemétnek jelőlt helyet felszabadítja, 
+	   ÉS 
+	   hézagmentesen tömöríti a HEAP-et. Ez azt is jelenti, hogy 
+	   valamennyi referenciát frissíti
+
+   Ez az algoritmus kiválóan működik akkor, ha nincs az objektumnak saját élettartammal 
+   rendelkező függősége. (nyitott hálózati kapcsolat, nyitott állomány, nagy méretű memóriafoglalás)
+   Tehát amíg nem kell takarítani az adott objektumpéldány után.
+
+   Erre szolgál az objektum véglegesítője (Finalizer).
+   Ezt az alábbi módon kezeli az operációs rendszer (változások az algoritmusban, kiegészítés):
+
+   3. Azokat az objektumokat, amiknek véglegesítője van, átteszi egy Finalizer Queue-ba (szintén root)
+      bár nincs rájuk hivatkozás a kódból, mégis elérhetők root elemként, így nem lesznek kitakarítva.
+ 
+   5. Valamikor, egy teljesen más szálon, egyszercsak, meghatározhatatlan idő után, a futtatókörnyezet
+      végigmegy a finalizer queue-n és lefuttatja a rajta lévő objektumok véglegesítőit és törli őket a Queue-ból.
+
+   És a következő Garbage Collect ciklusban így már nem mutat rájuk referencia a root objektumokból, ezért a GC 
+   kitakarítja őket.
+
+   Tehát a legfontosabb gondolat: a véglegesítővel ellátott objektumoknak KÉT SZEMÉTGYŰJTŐ ciklus kell ahhoz, hogy
+   a memóriából eltűnjenek.
+
+   DE EZ CSAK A B-TERVE a futtatókörnyezetnek. (védőháló, a legvégső esetre) 
+
+   Példa: a Bitmap osztálynak van véglegesítője, és eltömi a memóriát, ha hagyjuk, hogy a futtatókörnyezet meghívja.
+   Ellenpélda: string osztály, nincs véglegesítője, megdolgoztatja a GC-t, de nem tömi el a memóriát.
+
+   Tehát a következtetés: _kerüljük a véglegesítő használatát_. (Egyébként kerüljük el, ha tudjuk a nagy mennyiságű és meretű 
+   osztálypéldányok létrehozását, mert a HEAP karbantartása mindenképpen viszi a teljesítményt.)
+
+   Hogy tudjuk elkerülni? IDisposable minta.
+
+12. Repository Unit tesztelés (Dependency Injection és Mock)
