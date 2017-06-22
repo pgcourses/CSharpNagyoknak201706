@@ -1,5 +1,7 @@
-﻿using _03GenericRepository.Repository;
+﻿using _01Data.Model;
+using _03GenericRepository.Repository;
 using _03GenericRepository.UnitTest.FakeObjects;
+using Moq;
 using System;
 using TechTalk.SpecFlow;
 
@@ -14,7 +16,9 @@ namespace _03GenericRepository.UnitTest
         public void AmennyibenEgySeverityRepository()
         {
             //sut = new SeverityRepository(new FakeContext());
-            sut = new SeverityRepository(new FakeContext());
+
+            var mockContext = new Mock<TodoContext>();
+            sut = new SeverityRepository(mockContext.Object);
         }
         
         [When(@"egy új elemet rögzítek a SeverityRepository-ban")]

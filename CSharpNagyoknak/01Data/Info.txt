@@ -351,7 +351,11 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 	b.) készíthetnénk egy felületet (ITodoContext), ami tartalmazza a lényeget a TodoContext-ből és azt implementálnánk a todoContext-ben és a 
 	    fake-ben is, és ha ezt a felületet várjuk a repo-ban, akkor a Fake-et is be tudjuk küldeni.
 
-	c.) Keresünk egy dublőrt, aki eljátssza, hogy ő a TodoContext. Erre szolgál a Mock keretrendszer.
+	c.) Keresünk egy dublőrt, aki eljátssza, hogy ő a TodoContext. Erre szolgál a Mock keretrendszer (Moq nuget csomag).
+	    https://github.com/moq/moq4
+
+		A szerzője felrakott pár videót az általa készített Funq (DI Container) felépítéséről.
+		http://blogs.clariusconsulting.net/kzu/funq-screencast-series-on-how-to-building-a-di-container-using-tdd/
 
 
 
