@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03GenericRepository.UnitTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "04GarbageCollector", "04GarbageCollector\04GarbageCollector.csproj", "{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "05Reflection", "05Reflection\05Reflection.csproj", "{F41C26C4-4790-4027-ACA2-9811BD48F4E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22F4D7D4-1CBE-4A6D-A504-85DA8387A0A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F41C26C4-4790-4027-ACA2-9811BD48F4E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F41C26C4-4790-4027-ACA2-9811BD48F4E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F41C26C4-4790-4027-ACA2-9811BD48F4E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F41C26C4-4790-4027-ACA2-9811BD48F4E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

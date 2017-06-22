@@ -359,6 +359,6 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 		http://blogs.clariusconsulting.net/kzu/funq-screencast-series-on-how-to-building-a-di-container-using-tdd/
 
 
-
-
+13. Reflexió (Reflection)
+    
 
