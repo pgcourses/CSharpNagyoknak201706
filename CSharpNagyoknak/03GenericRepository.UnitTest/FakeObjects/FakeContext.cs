@@ -8,12 +8,16 @@ using System.Data.Entity;
 
 namespace _03GenericRepository.UnitTest.FakeObjects
 {
+    /// <summary>
+    /// FIGYELEM, ez egyáltalán nem jó irány
+    /// </summary>
     public class FakeContext : TodoContext
     {
         public FakeContext()
         { }
 
-        private List<Severity> severities = new List<Severity>();
+        private List<Severity> severities = new List<Severity>(); //Ez tartalmazhatná az adatokat
+        private DbSet<Severity> severitiesSet; //= new DbSet<Severity>(); //Ezt egyáltalán nem lehet így példányosítani
 
         public override DbSet<TodoItem> TodoItems
         {
@@ -32,7 +36,8 @@ namespace _03GenericRepository.UnitTest.FakeObjects
         {
             get
             {
-                return severities; //mivel ez lista, DbSet-té nem tudjuk egyszerűen alakítani
+                //return severities; //mivel ez lista, DbSet-té nem tudjuk egyszerűen alakítani
+                return severitiesSet; 
             }
 
             set

@@ -2,6 +2,7 @@
 using _03GenericRepository.Repository;
 using _03GenericRepository.UnitTest.FakeObjects;
 using Moq;
+using NUnit.Framework;
 using System;
 using TechTalk.SpecFlow;
 
@@ -24,7 +25,7 @@ namespace _03GenericRepository.UnitTest
         [When(@"egy új elemet rögzítek a SeverityRepository-ban")]
         public void MajdEgyUjElemetRogzitekASeverityRepository_Ban()
         {
-            ScenarioContext.Current.Pending();
+            sut.Add(new DTO.SeverityDTO { Title = "Ez itt egy akármi bármi" });
         }
         
         [When(@"rákeresek egy létező elemre a SeverityRepository-ban")]
@@ -48,7 +49,8 @@ namespace _03GenericRepository.UnitTest
         [Then(@"annak látszódnia kell a SeverityRepository-ban\.")]
         public void AkkorAnnakLatszodniaKellASeverityRepository_Ban_()
         {
-            ScenarioContext.Current.Pending();
+            var severity = sut.Find(s => s.Title == "Ez itt egy akármi bármi");
+            Assert.IsNotNull(severity);
         }
         
         [Then(@"annak el kell tűnnie SeverityRepository-ból")]
