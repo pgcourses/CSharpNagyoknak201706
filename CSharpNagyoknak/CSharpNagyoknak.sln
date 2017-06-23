@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07ReflectionBenchmark", "07
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "08GarbageCollectorPerformance", "08GarbageCollectorPerformance\08GarbageCollectorPerformance.csproj", "{34FB3D89-FC9C-4C44-AADB-FE3A6CA71384}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "09PerformanceCounters", "09PerformanceCounters\09PerformanceCounters.csproj", "{B9415864-D5DE-4008-B5AE-55200EA17363}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{34FB3D89-FC9C-4C44-AADB-FE3A6CA71384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34FB3D89-FC9C-4C44-AADB-FE3A6CA71384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34FB3D89-FC9C-4C44-AADB-FE3A6CA71384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9415864-D5DE-4008-B5AE-55200EA17363}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9415864-D5DE-4008-B5AE-55200EA17363}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9415864-D5DE-4008-B5AE-55200EA17363}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9415864-D5DE-4008-B5AE-55200EA17363}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
