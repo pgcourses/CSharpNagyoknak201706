@@ -52,7 +52,21 @@ namespace _03GenericRepository.UnitTest
 
             var mockDbSet = new Mock<DbSet<Severity>>();
 
-            //TODO: Hogy kell az IQueryable felületet mockolni a DbSet-en?
+            mockDbSet.As<IQueryable<Severity>>()
+                     .Setup(iqueriable => iqueriable.Provider)
+                     .Returns(list.AsQueryable().Provider);
+
+            mockDbSet.As<IQueryable<Severity>>()
+                     .Setup(iqueriable => iqueriable.Expression)
+                     .Returns(list.AsQueryable().Expression);
+
+            mockDbSet.As<IQueryable<Severity>>()
+                     .Setup(iqueriable => iqueriable.ElementType)
+                     .Returns(list.AsQueryable().ElementType);
+
+            mockDbSet.As<IQueryable<Severity>>()
+                     .Setup(iqueriable => iqueriable.GetEnumerator())
+                     .Returns(list.AsQueryable().GetEnumerator());
 
             //4. Ahhoz, hogy hozzáadni tudjunk, kell az Add függvény setupja a DbSet-en
             mockDbSet.Setup(set => set.Add(It.IsAny<Severity>())) //jelzem, hogy az add bármilyen paramétere esetén él ez a setup
@@ -73,8 +87,10 @@ namespace _03GenericRepository.UnitTest
                      .Callback<Severity>(severity => list.Remove(severity));
 
             //update
-            //TODO: hogy kell az Update-et mockolni???
-            //mockDbSet.Setup()
+            //COMMENT: hogy kell az Update-et mockolni???
+            //Nem kell mockolni, az Update magától jól működik.
+            //mivel a find a listaelem referenciáját adja vissza, így a 
+            //property-k módosítása jó helyre megy.
 
             //6. Végül, a DbContext-nek megadjuk az így felparaméterezett DbSet-et, hogy ezt adja vissza, ha
             //   valaki kéri tőle.
@@ -112,7 +128,10 @@ namespace _03GenericRepository.UnitTest
         [Then(@"annak látszódnia kell a SeverityRepository-ban\.")]
         public void AkkorAnnakLatszodniaKellASeverityRepository_Ban_()
         {
-            var severity = sut.Find(3);
+            //var severity = sut.Find(3);  //Így kell, ha nem tudunk IQueryable felületet mockolni
+
+            //Így pedig, ha tudunk
+            var severity = sut.Find(x=>x.Title=="Ez itt egy akármi bármi");
             Assert.IsNotNull(severity);
         }
         

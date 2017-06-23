@@ -52,7 +52,6 @@ namespace _02Repository.Repository
             {
                 using (var tran = db.Database.BeginTransaction())
                 {
-                    //TODO: tranzakció FIGYELEM: NEM MŰKÖDIK EGYÁLTALÁN
                     db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems on");
 
                     db.Database.ExecuteSqlCommand("insert TodoItems (Id,Title,IsDone,Opened,Closed,SeverityId) values (@Id,@Title,@IsDone,@Opened,@Closed,@SeverityId)",
