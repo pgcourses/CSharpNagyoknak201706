@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using _09PerformanceCounters;
 
 namespace _03GenericRepository.Repository
 {
@@ -17,13 +18,17 @@ namespace _03GenericRepository.Repository
         where TDto: class, IClassWithId
         where TProfile: Profile, new()
     {
+        private readonly CSharpDDCounters counters;
+
         public GenericRepositoryWithUsing()
         {
             Mapper.Initialize(cfg => cfg.AddProfile<TProfile>());
+            counters = new CSharpDDCounters("03GenericRepository.GenericRepositoryWithUsing");
         }
 
         public void Add(TDto dto)
         {
+            counters.BeginOperation();
             //COMMENT: Tervezési kérdés a null érték használata
             //http://netacademia.blog.hu/2017/05/30/miert_ne_hasznaljunk_null-t
             if (null == dto)
@@ -42,6 +47,7 @@ namespace _03GenericRepository.Repository
 
                 dto.Id = item.Id;
             }
+            counters.EndOperation();
         }
 
         public void AddWithId(TDto dto)

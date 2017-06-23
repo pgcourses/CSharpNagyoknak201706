@@ -18,7 +18,7 @@ namespace _09PerformanceCounters
                 counters.BeginOperation();
                 //Itt végezhetünk valami műveletet
                 Thread.Sleep(238);
-                counters.EndOperations();
+                counters.EndOperation();
             }
         }
     }

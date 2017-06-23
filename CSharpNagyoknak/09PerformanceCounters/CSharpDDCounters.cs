@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace _09PerformanceCounters
 {
-    internal class CSharpDDCounters
+    public class CSharpDDCounters
     {
         private string appName;
         private readonly PerformanceCounter avgTimeOfOp;
@@ -30,12 +30,12 @@ namespace _09PerformanceCounters
         [DllImport("Kernel32.dll")]
         private static extern void QueryPerformanceCounter(ref long tick);
 
-        internal void BeginOperation()
+        public void BeginOperation()
         {
             QueryPerformanceCounter(ref begin);
         }
 
-        internal void EndOperations()
+        public void EndOperation()
         {
             QueryPerformanceCounter(ref end);
             var ticks = end - begin;

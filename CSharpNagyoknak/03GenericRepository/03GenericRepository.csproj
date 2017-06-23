@@ -69,6 +69,10 @@
       <Project>{75e6cf71-8d5c-42ed-87b7-5fb6f24fa48a}</Project>
       <Name>01Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\09PerformanceCounters\09PerformanceCounters.csproj">
+      <Project>{b9415864-d5de-4008-b5ae-55200ea17363}</Project>
+      <Name>09PerformanceCounters</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
