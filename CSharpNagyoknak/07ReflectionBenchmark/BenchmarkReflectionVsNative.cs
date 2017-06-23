@@ -1,9 +1,11 @@
-﻿using System;
+﻿using BenchmarkDotNet.Attributes;
+using System;
 using System.Reflection;
 
 namespace _07ReflectionBenchmark
 {
 
+    [MemoryDiagnoser]
     public class BenchmarkReflectionVsNative
     {
         private MethodInfo method;
@@ -15,11 +17,13 @@ namespace _07ReflectionBenchmark
             method = t.GetMethod("GetDate", BindingFlags.Static | BindingFlags.NonPublic);
         }
 
+        [Benchmark]
         public object GetDateWithReflection()
         {
             return method.Invoke(null, null);
         }
 
+        [Benchmark]
         public string GetDateWithReflectionFull()
         {
             var t = Assembly.GetExecutingAssembly()
@@ -28,6 +32,7 @@ namespace _07ReflectionBenchmark
             return (string)m.Invoke(null, null);
         }
 
+        [Benchmark(Baseline = true)]
         public string GetDateWithoutReflection()
         {
             return GetDate();

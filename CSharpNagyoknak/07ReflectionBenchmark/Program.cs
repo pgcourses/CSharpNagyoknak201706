@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BenchmarkDotNet.Running;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,6 +11,12 @@ namespace _07ReflectionBenchmark
     class Program
     {
         static void Main(string[] args)
+        {
+            //SajatBenchmark();
+            BenchmarkRunner.Run<BenchmarkReflectionVsNative>();
+        }
+
+        private static void SajatBenchmark()
         {
             var sw = new Stopwatch();
 
@@ -41,7 +48,6 @@ namespace _07ReflectionBenchmark
             //Without Reflection: 1502
             //With Reflection: 1652
             //With Reflection and preparing: 3438
-
         }
     }
 }

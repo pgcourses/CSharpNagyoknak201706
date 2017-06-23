@@ -377,5 +377,7 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 	https://github.com/dotnet/BenchmarkDotNet
 	http://benchmarkdotnet.org/
 
+	Release fordításból kell futtatni közvetlenül az exe-t.
 
-
+	A .NET fejlesztő teljesítménykritériumai: https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/performance-guidelines.md#creating-a-microbenchmark
+	Egyszerű példák: http://mattwarren.org/2016/02/17/adventures-in-benchmarking-memory-allocations/
