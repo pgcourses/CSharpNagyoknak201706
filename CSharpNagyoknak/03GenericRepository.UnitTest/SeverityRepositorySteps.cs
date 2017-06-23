@@ -52,6 +52,8 @@ namespace _03GenericRepository.UnitTest
 
             var mockDbSet = new Mock<DbSet<Severity>>();
 
+            //TODO: Hogy kell az IQueryable felületet mockolni a DbSet-en?
+
             //4. Ahhoz, hogy hozzáadni tudjunk, kell az Add függvény setupja a DbSet-en
             mockDbSet.Setup(set => set.Add(It.IsAny<Severity>())) //jelzem, hogy az add bármilyen paramétere esetén él ez a setup
                      .Callback<Severity>(severity => //jelzem a várt paraméter típusát, és utána használhatom
@@ -71,7 +73,7 @@ namespace _03GenericRepository.UnitTest
                      .Callback<Severity>(severity => list.Remove(severity));
 
             //update
-            //TODO: hogy kell Delete-et mockolni???
+            //TODO: hogy kell az Update-et mockolni???
             //mockDbSet.Setup()
 
             //6. Végül, a DbContext-nek megadjuk az így felparaméterezett DbSet-et, hogy ezt adja vissza, ha

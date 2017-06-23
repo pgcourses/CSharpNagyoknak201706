@@ -50,7 +50,7 @@ namespace _02Repository.Repository
 
             using (var db = new TodoContext())
             {
-                //todo: tranzakció FIGYLEM: NEM MŰKÖDIk EGYÁLTALÁN
+                //TODO: tranzakció FIGYELEM: NEM MŰKÖDIK EGYÁLTALÁN
                 db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems on");
 
                 //Az azonosító a mentés után jelenik meg, ezért 

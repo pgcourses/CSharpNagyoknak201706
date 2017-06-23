@@ -18,7 +18,7 @@ namespace _01Data.Test
             //AAA: Act, Arrange, Assert
 
             //Act
-            //todo: a DbContext-et így nem szabad használni, javítani kell!
+            //TODO: a DbContext-et így nem szabad használni, javítani kell!
             var db = new TodoContext();
 
             //Arrange
