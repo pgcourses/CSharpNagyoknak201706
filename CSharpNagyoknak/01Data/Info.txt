@@ -372,3 +372,10 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 	1. Attributum definíció (Ez megmondja, hogy mit jelent egy-egy dekoráció)
 	2. Attributum használat (Dekoráljuk az osztályt, függvényt, property-t)
 	3. Attributum működés (a környezet figyeli az attributumokat, és annak megfelelően módosítja a viselkedést.)
+
+15. BenchmarkDotnet
+	https://github.com/dotnet/BenchmarkDotNet
+	http://benchmarkdotnet.org/
+
+
+
