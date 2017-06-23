@@ -28,7 +28,7 @@ namespace _03GenericRepository.Repository
 
         public void Add(TDto dto)
         {
-            counters.BeginOperation();
+            //counters.BeginOperation();
             //COMMENT: Tervezési kérdés a null érték használata
             //http://netacademia.blog.hu/2017/05/30/miert_ne_hasznaljunk_null-t
             if (null == dto)
@@ -47,7 +47,7 @@ namespace _03GenericRepository.Repository
 
                 dto.Id = item.Id;
             }
-            counters.EndOperation();
+            //counters.EndOperation();
         }
 
         public void AddWithId(TDto dto)
@@ -57,6 +57,7 @@ namespace _03GenericRepository.Repository
 
         public TDto Find(int id, params Expression<Func<TEntity, object>>[] includeParams)
         {
+            counters.BeginOperation();
             using (var db = new TodoContext())
             {
                 var query = db.Set<TEntity>()
@@ -75,7 +76,9 @@ namespace _03GenericRepository.Repository
                     return default(TDto);
                 }
 
-                return Mapper.Map<TDto>(item);
+                var result = Mapper.Map<TDto>(item);
+                counters.EndOperation();
+                return result;
             }
         }
 
