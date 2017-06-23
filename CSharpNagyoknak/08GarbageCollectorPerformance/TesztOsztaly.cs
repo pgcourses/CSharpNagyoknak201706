@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace _08GarbageCollectorPerformance
 {
-    internal class TesztOsztaly : IDisposable
+    public class TesztOsztaly : IDisposable
     {
         List<string> adat = new List<string>();
 
         public TesztOsztaly()
         {
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 100000; i++)
             {
                 adat.Add(new string(' ', 1000));
             }
@@ -32,6 +33,7 @@ namespace _08GarbageCollectorPerformance
             {
                 adat.Clear();
             }
+            //Thread.Sleep(0);
         }
     }
 }

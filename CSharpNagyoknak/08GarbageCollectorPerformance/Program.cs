@@ -10,9 +10,21 @@ namespace _08GarbageCollectorPerformance
     {
         static void Main(string[] args)
         {
-            while (!Console.KeyAvailable)
+            if (args.Length > 0)
             {
-                var teszt = new TesztOsztaly();
+                Console.WriteLine("using-gal");
+                while (!Console.KeyAvailable)
+                {
+                    using (var teszt = new TesztOsztaly()) { }
+                }
+            }
+            else
+            {
+                Console.WriteLine("using nélkül");
+                while (!Console.KeyAvailable)
+                {
+                    var teszt = new TesztOsztaly();
+                }
             }
         }
     }

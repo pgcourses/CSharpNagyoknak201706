@@ -381,3 +381,41 @@ Ha az adatbázis séma (tehát az adatmodell a migrációs lépésekben)
 
 	A .NET fejlesztő teljesítménykritériumai: https://github.com/dotnet/coreclr/blob/master/Documentation/project-docs/performance-guidelines.md#creating-a-microbenchmark
 	Egyszerű példák: http://mattwarren.org/2016/02/17/adventures-in-benchmarking-memory-allocations/
+
+16. GC teljesítmény
+
+    A GC mindig le fog futni. Problémák:
+
+	a.) ha túl sok osztálypéldányt hozunk létre, akkor gyorsan telítődik a HEAP, így a GC-nek sűrűbben kell futnia.
+	b.) ha nem használjuk az IDisposable felülettel rendelkező osztályokon a Dispose()-t, akkor a finalizer-nek kell takarítania.
+	    ilyenkor kért GC ciklus kell a takarításhoz.
+	c.) ráadásul, ilyenkor, ha a takarítás lassabb, mint a létrehozás, biztosan elfogy a memória.
+
+
+	|         |
+	|         |
+	|         |
+	|         |
+	|         |
+	-----------
+
+	Három folyamat van: létrehozás a takarítás és a törlés. Ha a takarítás és törlés a folyamtunk része, akkor kalkulálható, 
+	lehet vele számolni, ha baj van vele, akkor ezonnal szembetűnik. Ehhez használni kell a Dispose-t.
+	Ha ez két folyamat, akkor egyrészt az időzítése is elszállhat, vagyis gyorsabban hozunk létre, mint ahogy takarítunk.
+	másrészt, rejtve marad a takarítás, a rá fordított idő, mivel a finalizer queue ürítése végzi egy harmadik szálon.
+
+	A GC korosít: az egyes példányok kora: hány GC takarítást éltek túl.
+
+	Amin még nem futott a GC az tehát a 0. korosztály
+	amin egyszer futott az 1. korosztály
+	és amin kétszer futott, az a 2. korosztály
+
+	Ellenőrző programok:
+	Process Explorer
+	https://technet.microsoft.com/en-us/sysinternals/processexplorer.aspx
+	A .NET Performance fülön megtaláljuk a GC futások számát. Ha ez folyamatosan nő, akkor az probléma.
+	Különösen a Gen1 és a Gen2 szám fontos, ha ezek is nőnek, akkor biztosan van valami teljesítményprobléma a kóddal.
+
+
+	https://github.com/Microsoft/perfview
+	Részletes információ a program futásáról
