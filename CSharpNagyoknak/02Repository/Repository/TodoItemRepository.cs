@@ -7,6 +7,7 @@ using _02Repository.DTO;
 using _01Data.Model;
 using AutoMapper;
 using _02Repository.AutoMapper;
+using System.Data.SqlClient;
 
 namespace _02Repository.Repository
 {
@@ -40,7 +41,6 @@ namespace _02Repository.Repository
 
         public void AddWithId(TodoItemDTO todoItemDTO)
         {
-            //
             //COMMENT: Tervezési kérdés a null érték használata
             //http://netacademia.blog.hu/2017/05/30/miert_ne_hasznaljunk_null-t
             if (null == todoItemDTO)
@@ -50,20 +50,24 @@ namespace _02Repository.Repository
 
             using (var db = new TodoContext())
             {
-                //TODO: tranzakció FIGYELEM: NEM MŰKÖDIK EGYÁLTALÁN
-                db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems on");
+                using (var tran = db.Database.BeginTransaction())
+                {
+                    //TODO: tranzakció FIGYELEM: NEM MŰKÖDIK EGYÁLTALÁN
+                    db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems on");
 
-                //Az azonosító a mentés után jelenik meg, ezért 
-                //a példány referenciáját megtartom.
-                var todoItem = Mapper.Map<TodoItem>(todoItemDTO);
+                    db.Database.ExecuteSqlCommand("insert TodoItems (Id,Title,IsDone,Opened,Closed,SeverityId) values (@Id,@Title,@IsDone,@Opened,@Closed,@SeverityId)",
+                        new SqlParameter("@Id", todoItemDTO.Id),
+                        new SqlParameter("@Title", todoItemDTO.Title),
+                        new SqlParameter("@IsDone", todoItemDTO.IsDone),
+                        new SqlParameter("@Opened", todoItemDTO.Opened),
+                        new SqlParameter("@Closed", (object)todoItemDTO.Closed ?? DBNull.Value),
+                        new SqlParameter("@SeverityId", todoItemDTO.SeverityId)
+                        );
 
-                db.TodoItems.Add(todoItem);
 
-                db.SaveChanges();
-
-                db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems off");
-
-                todoItemDTO.Id = todoItem.Id;
+                    db.Database.ExecuteSqlCommand("set identity_insert dbo.TodoItems off");
+                    tran.Commit();
+                }
             }
         }
 
